@@ -17,6 +17,18 @@ class ArticleController {
         }
     }
 
+    getArticles = async (req, res, next) => {
+        try {
+            const articles = await articleModel.find();
+            return res.json(articles);
+        } catch (error) {
+            res.status(500).json({
+                message: error.message
+            });
+        }
+    }
+    
+
     createArticle = async (req, res, next) => {
         try {
             const { title, content } = req.body;
