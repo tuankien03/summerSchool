@@ -1,0 +1,11 @@
+@url_dev = http://localhost:3000/v1/api
+
+POST {{url_dev}}/account/login
+Content-Type: application/json
+
+{
+  "email": "shopdfgtrg@example.com",
+  "password": "Kiadfasdfasdf"
+}
+
+

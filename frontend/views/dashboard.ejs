@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/style.admin.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Sevillana&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="">
+    <!-- Side bar -->
+    <div class="sidebar">
+        <a href="#" class="logo">
+            <div class="logo-name"><span>UE</span>TOT</div>
+        </a>
+        <ul class="side-menu">
+            <li><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="#"><i class='bx bx-store-alt'></i>Quản Lí</a></li>
+            <li><a href="#"><i class='bx bx-analyse'></i>Tài khoản</a></li>
+            <li class="active"><a href="#"><i class='bx bx-message-square-dots'></i>Bài viết</a></li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="/login" class="logout">
+                    <i class='bx bx-log-out'></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+
+    <div class="content">
+        <!-- Navbar -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="search...">
+                    <button class="search-btn" type="submit"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="theme-toggle" hidden>
+            <label for="theme-toggle" class="theme-toggle"></label>
+            <a href="#" class="notif"><i class='bx bx-bell'></i><span class="count">12</span></a>
+            <a href="#" class="profile"><img src="/images/logo.png" alt="profile"></a>
+        </nav>
+        <!-- Main -->
+        <div class="dashboard-content dashboard ">
+            <div class="header">
+                <div class="left">
+                    <h1>Dashboard</h1>
+                </div>
+                <a href="#" class="report">
+                    <i class='bx bx-cloud-download'></i>
+                    <span>Download CSV</span>
+                </a>
+            </div>
+            <!-- Insight -->
+            <ul class="insights">
+                <li>
+                    <i class='bx bx-calendar-check'></i>
+                    <span class="info">
+                        <h3>1203</h3>
+                        <p>Paid order</p>
+                    </span>
+                </li>
+                <li>
+                    <i class='bx bx-show-alt'></i>
+                    <span class="info">
+                        <h3>1340</h3>
+                        <p>Site visited</p>
+                    </span>
+                </li>
+                <li>
+                    <i class='bx bx-line-chart'></i>
+                    <span class="info">
+                        <h3>1203</h3>
+                        <p>Paid order</p>
+                    </span>
+                </li>
+                <li>
+                    <i class='bx bx-dollar-circle'></i>
+                    <span class="info">
+                        <h3>1203</h3>
+                        <p>Paid order</p>
+                    </span>
+                </li>
+            </ul>
+
+            <div class="bottom-data">
+                <div class="order">
+                    <div class="header">
+                        <i class='bx bx-receipt'></i>
+                        <h3>Số lượng sinh viên đăng kí</h3>
+                        <i class='bx bx-filter'></i>
+                        <i class='bx bx-search'></i>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>DOB</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% students.forEach(student => { %>
+                                <% if (student.status == 'active') { %>
+                                    <tr>
+                                        <td>
+                                            <img src="https://gp1.wac.edgecastcdn.net/802892/http_public_production/artists/images/8887434/original/resize:248x186/crop:x0y173w1400h1050/hash:1717246770/1400.jpg?1717246770">
+                                            <p><%= student.name %></p>
+                                        </td>
+                                        <td><%= student.dob %></td>
+                                        <td><span class="status completed">Đã đăng kí</span></td>
+                                        <td><button></button></td>
+                                    </tr>
+                                <% } else { %>
+                                    <tr>
+                                        <td>
+                                            <img src="https://gp1.wac.edgecastcdn.net/802892/http_public_production/artists/images/8887434/original/resize:248x186/crop:x0y173w1400h1050/hash:1717246770/1400.jpg?1717246770">
+                                            <p><%= student.name %></p>
+                                        </td>
+                                        <td><%= student.dob %></td>
+                                        <td><span class="status pending">Đang chờ</span></td>
+                                    </tr>
+                            <% }}) %>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="dashboard-content manage">Quản lí </div>
+        <div class="dashboard-content account">tài khoản</div>
+        <div class="dashboard-content article show">
+            <h1>Đăng tải bài viết</h1>
+            <form id="editor-form" action="http://localhost:3000/v1/api/article" method="post">
+                <br>
+                <input type="text" id="title" name="title" placeholder="Tiêu đề bài viết " required>
+                <br>
+                <div class="editor-wrapper">
+                    <div id="editor-container">
+                        <p>Viết bài tại đây....</p>
+                    </div>
+                </div>
+                <input type="hidden" id="editor-content" name="content">
+                <br>
+                <button type="submit" class="submit-btn">Đăng Bài</button>
+            </form>
+
+
+            <!-- Include the Quill library -->
+            <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
+            <!-- Initialize Quill editor -->
+            <script>
+                const toolbarOptions = [
+                    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                    ['blockquote', 'code-block'],
+                    ['link', 'image', 'video', 'formula'],
+
+                    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+                    [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+                    [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+                    [{ 'direction': 'rtl' }],                         // text direction
+
+                    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+                    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                    [{ 'font': [] }],
+                    [{ 'align': [] }],
+
+                    ['clean']                                         // remove formatting button
+                ];
+                const quill = new Quill('#editor-container', {
+                    modules: {
+                        toolbar: toolbarOptions
+                    },
+                    theme: 'snow'
+                });
+
+                function imageHandler() {
+                    var input = document.createElement('input');
+                    input.setAttribute('type', 'file');
+                    input.setAttribute('accept', 'image/*');
+                    input.click();
+        
+                    input.onchange = function() {
+                        var file = input.files[0];
+                        if (file) {
+                            var formData = new FormData();
+                            formData.append('image', file);
+        
+                            fetch('/upload', {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                var range = quill.getSelection();
+                                quill.insertEmbed(range.index, 'image', data.url);
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                        }
+                    };
+                }
+        
+                document.getElementById('editor-form').onsubmit = function() {
+                    var content = document.querySelector('input[name=content]');
+                    content.value = quill.root.innerHTML;
+                };
+                
+            </script>
+        </div>
+    </div>
+
+
+
+
+
+    </div>
+
+
+
+    <script src="/js/index.admin.js"></script>
+</body>
+
+</html>
