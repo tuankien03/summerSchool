@@ -70,3 +70,17 @@ themeToggle.addEventListener('change', function (e) {
         document.querySelector('body').classList.remove('dark')
     }
 })
+
+const readBtn = document.querySelectorAll('.content .read .bx');
+const articleSub = document.querySelectorAll('.article-sub');
+
+readBtn.forEach((item, index) => {
+    item.addEventListener('click', () => {
+        if (item.classList.contains('bx-x')) {
+            item.classList.replace('bx-x', 'bx-spreadsheet')
+        } else {
+            item.classList.replace('bx-spreadsheet', 'bx-x')
+        }
+        articleSub[index].classList.toggle('show');
+    })
+})

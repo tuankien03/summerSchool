@@ -12,6 +12,17 @@ app.use(cookieParser());
 
 app.use('/', router)
 
+app.get('/', (req, res) => {
+    console.log(req.cookies.authToken);
+    if(req.cookies.token){
+        console.log(req.cookies.token);
+        res.redirect('/dashboard');
+    }else{
+        res.redirect('/login');
+    }
+})
+
+
 
 app.listen(5000, () => { 
     console.log('Server is running on port 5000');

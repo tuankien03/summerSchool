@@ -15,9 +15,9 @@ loginform.addEventListener("submit", async (e) => {
     });
     const data = await response.json();
     console.log(data);
-    if (data) {
+    if (!data.code) {
         window.location.href = "/dashboard";
     } else {
-        alert(data);
+        alert(data.message);
     }
 });

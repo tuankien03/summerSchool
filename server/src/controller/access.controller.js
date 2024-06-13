@@ -6,30 +6,44 @@ import bcrypt from 'bcrypt';
 class AccessController {
     login = async (req, res, next) => {
         try {
-            const secretKey = 'daylamotdongmahavodich'
-            const {email, password} = req.body;
+            const secretKey = 'daylamotdongmahavodich';
+            const { email, password } = req.body;
+    
             if (!email || !password) {
-                return res.status(400).send('Email and password are required');
+                return res.status(401).json({
+                    message: 'Email và mật khẩu là bắt buộc'
+                });
             }
-
-            const account = await AccountModel.findOne({ email: email}).lean();
+    
+            const account = await AccountModel.findOne({ email: email }).lean();
             if (!account) {
-                return res.status(401).send('Invalid credentials');
+                return res.status(401).json({
+                    code: 401,
+                    message: 'Không tìm thấy tài khoản'
+                });
             }
-
-            bcrypt.compare(password, account.password, (err, result) => {
-                if (err) {
-                    return res.status(401).send('Invalid credentials');
-                } else {
-                    console.log('Password matched::', result)
-                }
-            })
-
+    
+            const result = await bcrypt.compare(password, account.password);
+            if (!result) {
+                return res.status(401).json({
+                    code: 401,
+                    message: 'Sai mật khẩu'
+                });
+            }
+    
             const token = jwt.sign({ email: account.email, _id: account._id }, secretKey, { expiresIn: '1h' });
-            return res.json(token);
+            res.cookie('authToken', token, {
+                httpOnly: true, // This prevents the cookie from being accessed via JavaScript
+                secure: process.env.NODE_ENV === 'production', // Ensures the cookie is only sent over HTTPS in production
+                maxAge: 3600000 // 1 hour in milliseconds
+            });
+            
+            return res.status(200).json({ token });
         } catch (error) {
-            return res.status(400).json({
-                message: error.message
+            console.error(error);
+            return res.status(500).json({
+                message: 'Internal server error',
+                error: error.message
             });
         }
     }

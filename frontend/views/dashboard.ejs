@@ -21,10 +21,9 @@
             <div class="logo-name"><span>UE</span>TOT</div>
         </a>
         <ul class="side-menu">
-            <li><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li class="active"><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
             <li><a href="#"><i class='bx bx-store-alt'></i>Quản Lí</a></li>
-            <li><a href="#"><i class='bx bx-analyse'></i>Tài khoản</a></li>
-            <li class="active"><a href="#"><i class='bx bx-message-square-dots'></i>Bài viết</a></li>
+            <li ><a href="#"><i class='bx bx-message-square-dots'></i>Bài viết</a></li>
         </ul>
         <ul class="side-menu">
             <li>
@@ -54,7 +53,7 @@
             <a href="#" class="profile"><img src="/images/logo.png" alt="profile"></a>
         </nav>
         <!-- Main -->
-        <div class="dashboard-content dashboard ">
+        <div class="dashboard-content dashboard show">
             <div class="header">
                 <div class="left">
                     <h1>Dashboard</h1>
@@ -65,37 +64,6 @@
                 </a>
             </div>
             <!-- Insight -->
-            <ul class="insights">
-                <li>
-                    <i class='bx bx-calendar-check'></i>
-                    <span class="info">
-                        <h3>1203</h3>
-                        <p>Paid order</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bx-show-alt'></i>
-                    <span class="info">
-                        <h3>1340</h3>
-                        <p>Site visited</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bx-line-chart'></i>
-                    <span class="info">
-                        <h3>1203</h3>
-                        <p>Paid order</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bx-dollar-circle'></i>
-                    <span class="info">
-                        <h3>1203</h3>
-                        <p>Paid order</p>
-                    </span>
-                </li>
-            </ul>
-
             <div class="bottom-data">
                 <div class="order">
                     <div class="header">
@@ -145,9 +113,50 @@
 
             </div>
         </div>
-        <div class="dashboard-content manage">Quản lí </div>
-        <div class="dashboard-content account">tài khoản</div>
-        <div class="dashboard-content article show">
+        <div class="dashboard-content dashboard manage">
+            <div class="header">
+                <div class="left">
+                    <h1>Quản lí Bài viết</h1>
+                </div>
+            </div>
+            <!-- Insight -->
+            <div class="bottom-data">
+                <div class="order">
+                    <div class="header">
+                        <i class='bx bx-receipt'></i>
+                        <h3>Bài Viết</h3>
+                        <i class='bx bx-filter'></i>
+                        <i class='bx bx-search'></i>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Created</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% articles.forEach(article => { %>
+                                    <tr>
+                                        <td>
+                                            <p><%= article.title %></p>
+                                        </td>
+                                        <td><%= article.createdAt %></td>
+                                        <td><span class="read"><i class='bx bx-spreadsheet' ></i></span></td>
+                                    </tr>
+                            <% }) %>             
+                        </tbody>
+                    </table>
+                </div>
+                <% articles.forEach(article => { %>
+                    <div class="article-sub" >
+                        <h2><%= article.title %></h2>
+                        <p><%- article.content %></p>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+        <div class="dashboard-content article ">
             <h1>Đăng tải bài viết</h1>
             <form id="editor-form" action="http://localhost:3000/v1/api/article" method="post">
                 <br>
