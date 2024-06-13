@@ -25,8 +25,12 @@ sideLinks.forEach((item, index) => {
 const menuBar = document.querySelector('.content nav .bx.bx-menu');
 const sideBar = document.querySelector('.sidebar');
 
+const sidetext = document.querySelectorAll('.sidetext');
 
 menuBar.addEventListener('click', () => {
+    sidetext.forEach(item => {
+        item.classList.toggle('side-text');
+    })
     sideBar.classList.toggle('close')
 });
 

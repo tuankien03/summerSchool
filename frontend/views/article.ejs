@@ -1,13 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articles</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-</body>
+  <div class="container">
+    <h1>Articles</h1>
+    <ul id="articles-list">
+      <!-- Danh sách bài viết sẽ được chèn vào đây -->
+    </ul>
+  </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('http://localhost:5000/v1/api/articles') // Gửi yêu cầu GET đến API để lấy danh sách bài viết
+        .then(response => response.json())
+        .then(data => {
+          const articlesList = document.getElementById('articles-list');
+          data.forEach(article => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = '/article.html?slug=${article.slug}'; 
+            link.textContent = article.title;
+            listItem.appendChild(link);
+            articlesList.appendChild(listItem);
+          });
+        })
+        .catch(error => console.error('Error fetching articles:', error));
+    });
+  </script>
+</body>
 </html>

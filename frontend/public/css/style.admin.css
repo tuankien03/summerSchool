@@ -82,6 +82,10 @@ body {
     box-sizing: content-box;
 }
 
+.logo-name {
+    margin-left: 15px;
+}
+
 .sidebar .logo .logo-name span { 
     color: var(--dark);
 }
@@ -110,6 +114,8 @@ body {
     background-color: var(--grey);
     position: relative;
 }
+
+
 
 .sidebar .side-menu li.active::before {
     content: "";
@@ -499,12 +505,15 @@ body {
     background: var(--grey);
 }
 
+
+
 .content .dashboard .bottom-data .order table tbody tr td .status {
     font-size: 10px;
     padding: 6px 16px;
     color: var(--light);
     border-radius: 20px;
     font-weight: 700;
+    text-wrap: nowrap;
 }
 
 .content .dashboard .bottom-data .order table tbody tr td .status.completed {
@@ -621,7 +630,7 @@ body {
     display: block;
     z-index: 1000;
     height: 400px;
-    width: 800px;
+    width: 900px;
 }
 
 .accepted {
@@ -644,6 +653,9 @@ body {
 .content .article form #editor-container {
     height: 400px;
 }
+.side-text {
+    color: rgb(0,0,0,0);
+}
 
 
 @media screen and (max-width: 768px){
@@ -655,6 +667,7 @@ body {
         width: calc(100% - 60px);
         left: 200px;
     }
+
 }
 
 @media screen and (max-width: 576px){

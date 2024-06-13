@@ -2,10 +2,12 @@ import StudentService from '../service/student.service.js';
 class StudentController {
     createStudent = async (req, res, next) => {
         const {name, dob, email, phone, address, levelknowledge, status} = req.body;
+        // console.log(req.body);
         const existStudent = await StudentService.getStudentByEmail(email);
         if (existStudent) { 
             return res.status(400).json({
-                message: 'Student already exists'
+                code: 400,
+                message: 'Sinh viên đã đăng kí rồi!!'
             });
         }
 
@@ -14,7 +16,7 @@ class StudentController {
 
         const student = await StudentService.createStudent(name, dob, email, phone, address, levelknowledge, status);
         return res.status(201).json({
-            message: 'Student created',
+            message: 'Đăng kí thành công!!',
             metadata: student || ''
         });
     }
